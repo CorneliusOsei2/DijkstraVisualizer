@@ -8,3 +8,5 @@ const Node = () => {
         <div id={`node-${row}-${col}`} className={`node-${identity}`}></div>
     );
 }
+
+export default Node;
