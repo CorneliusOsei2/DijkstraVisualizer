@@ -1,11 +1,10 @@
+import '../Styles/Node.css'
 
-
-const Node = () => {
-    const {row, col, isWall, isStart, isEnd, } = this.props;
+const Node = ({row, col, isWall, isStart, isEnd, }) => {
     const identity = isEnd ? 'node-end' : isStart ? 'node-start' : isWall ? 'node-wall' : '';
 
     return (
-        <div id={`node-${row}-${col}`} className={`node-${identity}`}></div>
+        <div id={`node-${row}-${col}`} className={`node node-${identity}`}></div>
     );
 }
 
