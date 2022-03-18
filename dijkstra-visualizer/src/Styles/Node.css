@@ -1,8 +1,15 @@
-
-   
 .node {
-    width: 25px;
-    height: 25px;
-    outline: 1px solid rgb(175, 216, 248);
-    display: inline-block;
-  }
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
+  box-shadow: 1px 1px 1px 1px #888888;
+}
+
+.node-start {
+  background-color: red;
+}
+
+.node-end {
+  background-color: green;
+}
