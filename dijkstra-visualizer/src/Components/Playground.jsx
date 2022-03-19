@@ -3,17 +3,17 @@ import Node from './Node.jsx'
 
 import '../Styles/Playground.css'
 
-import {START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW} from '../Scripts/Constants'
+import {START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW, ROWS, COLS} from '../Scripts/Constants'
 import { shortestPathAlgorithm } from "../Scripts/Dijkstra.js";
 
 // Creates nested lists to be used for grid
 const gridHandler = () => {
     let resNodes = []
 
-    for (let row = 0; row <= 20; row++){
+    for (let row = 0; row <= ROWS; row++){
         let currentRow = [];
 
-        for (let col=0; col<= 50; col++){
+        for (let col=0; col<= COLS; col++){
             currentRow.push(nodeHandler(row, col))
         }
         resNodes.push(currentRow);
@@ -41,6 +41,7 @@ const nodeHandler = (row, col) => {
 
 const Playground = () => {
     const [nodes, setNodes] = useState([]);
+    const [createWall, setCreateWall] = useState(false)
 
     // Create grid by changing state of nodes
     const createGrid = () => {
@@ -88,22 +89,31 @@ const Playground = () => {
         
     }
 
+    /**
+     * Handle mouse event listeners for drawing the walls 
+     */
     const handleOnMouseDown = (row, col) => {
+        setCreateWall(!createWall);
         wallNodeHandler(nodes[row][col]);
-        console.log(nodes[row][col])
     }
 
-    const handleOnMouseEnter = () => {
-        
+    const handleOnMouseEnter = (row, col) => {
+        if (createWall){
+            wallNodeHandler(nodes[row][col]);
+        }
     }
 
-    const handleOnMouseUp = () => {
-
+    const handleOnMouseUp = (row, col) => {
+        wallNodeHandler(nodes[row][col]);
+        setCreateWall(false);
     }
     const wallNodeHandler = (node) => {
         node.wall = true;
-        const nodeDiv = document.getElementById(`node-${node.row}-${node.col}`)
-              nodeDiv.className = 'node wall';
+        if (node.wall){
+            const nodeDiv = document.getElementById(`node-${node.row}-${node.col}`)
+            nodeDiv.className = 'node wall';
+        }
+       
     }
 
     return (
@@ -111,6 +121,8 @@ const Playground = () => {
             <button id={nodes.length !== 0 ? `hide`: `begin`} onClick={createGrid}>Click</button>
 
             <button id={nodes.length === 0 ? `hide`: `begin`} onClick={getPath}>Click</button>
+
+            
             
             {nodes.map((row, rowId) => {
                 return <div>

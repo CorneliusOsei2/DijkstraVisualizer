@@ -16,6 +16,7 @@ const shortestPathAlgorithm = (startNode, endNode, grid) => {
         const currNode = unvisited.shift();
         if (currNode.distance === Infinity) return visited;
         
+        // If we meet a wall, we go around it and not visit it
         if(currNode.wall){ continue; }
         currNode.visited = true;
         visited.push(currNode)
