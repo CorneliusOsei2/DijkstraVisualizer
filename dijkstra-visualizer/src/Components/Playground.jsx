@@ -1,53 +1,44 @@
 import { useState } from "react";
-import Node from './Node.jsx'
 
+// Components
+import Node from './Node.jsx'
+import Welcome from "./Welcome.jsx";
+
+// Scripts
+import { gridHandler } from "../Scripts/GridNode.js"
+import { shortestPathAlgorithm } from "../Scripts/Dijkstra.js";
+import {animateGrid} from "../Scripts/Animations.js"
+
+// Styless
 import '../Styles/Playground.css'
 
-import {START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW, ROWS, COLS} from '../Scripts/Constants'
-import { shortestPathAlgorithm } from "../Scripts/Dijkstra.js";
-
-// Creates nested lists to be used for grid
-const gridHandler = () => {
-    let resNodes = []
-
-    for (let row = 0; row <= ROWS; row++){
-        let currentRow = [];
-
-        for (let col=0; col<= COLS; col++){
-            currentRow.push(nodeHandler(row, col))
-        }
-        resNodes.push(currentRow);
-    }
-    return resNodes;
-}
-
-// Create Node-Object-Template and Set Properties
-const nodeHandler = (row, col) => {
-    const node = {
-        row,
-        col,
-        isStart: row === START_NODE_ROW && col === START_NODE_COL,
-        isEnd: row === END_NODE_ROW && col === END_NODE_COL,
-        wall: false,
-        distance: Infinity,
-        previous: null,
-        visited: false
-
-    }
-    return node;
-}
-
+// Constants
+import {START_NODE_COL, START_NODE_ROW, END_NODE_COL, END_NODE_ROW} from '../Scripts/Constants'
 
 
 const Playground = () => {
     const [nodes, setNodes] = useState([]);
     const [createWall, setCreateWall] = useState(false)
+    const [welcome, setWelcome] = useState(true)
+    const [numRows, setNumRows] = useState(15);
+    const [numCols, setNumCols] = useState(40);
 
     // Create grid by changing state of nodes
     const createGrid = () => {
-        let resNodes = gridHandler();
+        let resNodes = gridHandler(numRows, numCols);
         setNodes(resNodes);
     }
+
+    // Set number of grid rows
+    const numRowsHandler = (e) => {
+        setNumRows(e.target.value)
+    }
+
+    // Set number of grid cols
+    const numColsHandler = (e) => {
+        setNumCols(e.target.value)
+    }
+
 
     /**
      * Get all paths leading to the End node
@@ -58,35 +49,6 @@ const Playground = () => {
         const path = shortestPathAlgorithm(start, end, nodes)
         animateGrid(path);
 
-    }
-
-    /**
-     * Animate the grid by changing the color of the nodes
-     * which are in the path
-     */
-    const animateGrid = (path) => {
-
-        for (let i = 0; i <= path.length; i++) {
-            if (i === path.length) {
-              setTimeout(() => {
-                animateShortestPath();
-              }, 10 * i);
-              return;
-            }
-            setTimeout(() => {
-              const node = path[i];
-              const nodeDiv = document.getElementById(`node-${node.row}-${node.col}`)
-              nodeDiv.className = 'node visited';
-              console.log(nodeDiv)
-            }, 10 * i);
-          }
-    }
-
-    /**
-     * Animate the actual shortest path
-     */
-    const animateShortestPath = () => {
-        
     }
 
     /**
@@ -118,9 +80,10 @@ const Playground = () => {
 
     return (
         <div className="grid">
-            <button id={nodes.length !== 0 ? `hide`: `begin`} onClick={createGrid}>Click</button>
 
             <button id={nodes.length === 0 ? `hide`: `begin`} onClick={getPath}>Click</button>
+
+            {welcome ? <Welcome numRowsHandler = {numRowsHandler} numColsHandler = {numColsHandler} createGrid={createGrid} nodes={nodes}></Welcome> : null}
 
             
             

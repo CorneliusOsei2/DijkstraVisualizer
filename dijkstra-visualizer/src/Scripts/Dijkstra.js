@@ -64,4 +64,4 @@ const updateUnvisitedNeighbors = (node, grid) => {
   }
 
 
-module.exports = {shortestPathAlgorithm}
+export {shortestPathAlgorithm};
