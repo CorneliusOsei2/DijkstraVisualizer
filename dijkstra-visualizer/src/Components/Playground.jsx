@@ -75,7 +75,7 @@ const Playground = () => {
             setTimeout(() => {
               const node = path[i];
               const nodeDiv = document.getElementById(`node-${node.row}-${node.col}`)
-              nodeDiv.className = 'node node-visited';
+              nodeDiv.className = 'node visited';
               console.log(nodeDiv)
             }, 10 * i);
           }
@@ -85,7 +85,25 @@ const Playground = () => {
      * Animate the actual shortest path
      */
     const animateShortestPath = () => {
+        
+    }
 
+    const handleOnMouseDown = (row, col) => {
+        wallNodeHandler(nodes[row][col]);
+        console.log(nodes[row][col])
+    }
+
+    const handleOnMouseEnter = () => {
+        
+    }
+
+    const handleOnMouseUp = () => {
+
+    }
+    const wallNodeHandler = (node) => {
+        node.wall = true;
+        const nodeDiv = document.getElementById(`node-${node.row}-${node.col}`)
+              nodeDiv.className = 'node wall';
     }
 
     return (
@@ -97,8 +115,8 @@ const Playground = () => {
             {nodes.map((row, rowId) => {
                 return <div>
                             {row.map((node, nodeId) => {
-                                const {row, col, isStart, isEnd, isWall} = node;
-                                return <Node id={nodeId} row={row} col={col} isStart={isStart} isEnd={isEnd} isWall={isWall}></Node>}
+                                const {row, col, isStart, isEnd, wall} = node;
+                                return <Node id={nodeId} row={row} col={col} isStart={isStart} isEnd={isEnd} wall={wall} onMouseDown={() => handleOnMouseDown(row, col)} onMouseEnter={() => handleOnMouseEnter(row, col)} onMouseUp={() => handleOnMouseUp(row, col)} ></Node>}
                                 )}
                         </div>;
             })}

@@ -3,17 +3,23 @@
   height: 25px;
   outline: 1px solid rgb(175, 216, 248);
   display: inline-block;
-  box-shadow: 1px 1px 1px 1px #888888;
+  box-shadow: 2px 1px 1px 1px #888888;
+  border-radius: 25px;
+  margin-left: 2px;
 }
 
-.node-start {
+.start {
   background-color: red;
 }
 
-.node-end {
+.end {
   background-color: green;
 }
 
-.node-visited {
+.visited {
   background-color: aqua;
+}
+
+.wall{
+  background-color: black;
 }
