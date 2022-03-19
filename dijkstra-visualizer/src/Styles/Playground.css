@@ -9,3 +9,7 @@
 #begin{
     display: block;
 }
+
+.node-shortest-path{
+  background-color: aqua;
+}

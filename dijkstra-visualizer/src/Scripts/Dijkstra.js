@@ -1,7 +1,7 @@
 
 
 
-const shortestPathAlgorithm = (grid, startNode, endNode) => {
+const shortestPathAlgorithm = (startNode, endNode, grid) => {
 
     if (startNode === endNode){
         return false;
@@ -11,17 +11,15 @@ const shortestPathAlgorithm = (grid, startNode, endNode) => {
     const visited = [];
     startNode.distance = 0;
 
-    while (unvisited.length){
+    while (!!unvisited.length){
         sortNodes(unvisited);
-
         const currNode = unvisited.shift();
-
+        if (currNode.distance === Infinity) return visited;
         
         if(currNode.wall){ continue; }
-
-        if (currNode.distance === Infinity) return visited;
         currNode.visited = true;
         visited.push(currNode)
+        
         if (currNode === endNode) {return visited;}
         updateUnvisitedNeighbors(currNode, grid);
 
@@ -31,11 +29,14 @@ const shortestPathAlgorithm = (grid, startNode, endNode) => {
 
 
 const getNodes = (grid) => {
-    const nodes = [];
+    const allNodes = [];
 
     for (let row of grid){
-        nodes.push(row);
+        for(let node of row){
+            allNodes.push(node);
+        }
     }
+    return allNodes;
 }
 
 const sortNodes = (nodes) => {
@@ -43,7 +44,7 @@ const sortNodes = (nodes) => {
 }
 
 const getUnvisitedNeighbors = (node, grid) => {
-    const neighbors = updateUnvisitedNeighbors(node, grid) ;
+    const neighbors = [] ;
     const {col, row} = node;
 
     if (row > 0)neighbors.push(grid[row - 1][col]);
@@ -60,3 +61,6 @@ const updateUnvisitedNeighbors = (node, grid) => {
       neighbor.previousNode = node;
     }
   }
+
+
+module.exports = {shortestPathAlgorithm}

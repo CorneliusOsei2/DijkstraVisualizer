@@ -1,6 +1,6 @@
 import '../Styles/Node.css'
 
-const Node = ({row, col, isWall, isStart, isEnd}) => {
+const Node = ({row, col, isWall, isStart, isEnd, distance, prev}) => {
     const identity = isEnd ? 'end' : isStart ? 'start' : isWall ? 'wall' : '';
 
     return (
