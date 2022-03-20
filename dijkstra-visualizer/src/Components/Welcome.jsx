@@ -1,10 +1,10 @@
 
-import '../Styles/Playground.css'
+import '../Styles/Welcome.css'
 
 function Welcome({ nodes, createGrid, numColsHandler, numRowsHandler }) {
 
     return (
-        <div id={nodes.length !== 0 ? `hide` : `begin`}>
+        <div id={nodes.length !== 0 ? `hide` : `begin`} className='welcome'>
 
             <div>
 
@@ -13,12 +13,12 @@ function Welcome({ nodes, createGrid, numColsHandler, numRowsHandler }) {
 
             <form>
                 <label htmlFor="num-rows">Number of Grid Rows</label>
-                <input id='num-rows' type="text" onChange={(e) => (numRowsHandler(e))} />
+                <input type="range" min="4" max="15" onChange={(e) => (numRowsHandler(e))}/>
 
                 <hr />
 
                 <label htmlFor="num-cols">Number of Grid Columns</label>
-                <input id='num-cols' type="text" onChange={(e) => (numColsHandler(e))} />
+                <input type="range" min="4" max="15" onChange={(e) => (numColsHandler(e))} />
             </form>
 
             <button onClick={createGrid}>Create Grid</button>

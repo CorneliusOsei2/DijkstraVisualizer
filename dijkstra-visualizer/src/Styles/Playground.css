@@ -1,5 +1,14 @@
+
+.playground{
+  display: flex;
+  flex-direction: column;
+}
+
+
 .grid {
-  margin: 100px 70px;
+  margin: auto;
+  margin-top: 10%;
+  background-image: url("https://wallpapercave.com/wp/ci1BoK6.jpg");
 }
 
 #hide {

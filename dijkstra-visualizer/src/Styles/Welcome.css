@@ -1,0 +1,32 @@
+
+.welcome{
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+
+#hide {
+    display: none;
+  }
+  
+  #begin{
+      display: block;
+  }
+
+form{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+label{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input{
+    margin: auto;
+    margin: 4%;
+    width: 80%;
+}
+  
